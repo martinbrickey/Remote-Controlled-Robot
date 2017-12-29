@@ -13,18 +13,27 @@
 #include "stm32f4xx_hal_gpio.h"
 
 //prototypes
+void setupHAL();
 void ledInit();
 void testLEDBlinker();
 
-
 int main(void) {
-	HAL_Init();
 
+	setupHAL();
 	ledInit();
 	testLEDBlinker();
 
 	for (;;)
 		;
+}
+
+/*
+ * setupHAL
+ *
+ * This function sets up the main HAL system stuff
+ */
+void setupHAL() {
+	HAL_Init();
 }
 
 /*
@@ -40,7 +49,7 @@ void ledInit() {
 	ledAInit.Speed = GPIO_SPEED_FREQ_LOW;
 	ledAInit.Pull = GPIO_NOPULL;
 
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE(); //why?
 
 	HAL_GPIO_Init(GPIOA, &ledAInit);
 
@@ -57,6 +66,7 @@ void testLEDBlinker() {
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
 		//garbage delay
-		for(uint32_t ii = 0; ii < 100000; ii++);
+		for (uint32_t ii = 0; ii < 100000; ii++)
+			;
 	}
 }
