@@ -8,16 +8,24 @@
  ******************************************************************************
  */
 
+//hal includes
 #include "stm32f4xx.h"
 #include "stm32f4xx_nucleo.h"
 #include "stm32f4xx_hal_gpio.h"
 
-//prototypes
-void setupHAL();
-void ledInit();
-void testLEDBlinker();
+//other includes
+#include "stdlib.h"
 
-int main(void) {
+//prototypes
+void
+setupHAL();
+void
+ledInit();
+void
+testLEDBlinker();
+
+//main function
+uint8_t main(void) {
 
 	setupHAL();
 	ledInit();
@@ -25,8 +33,10 @@ int main(void) {
 
 	for (;;)
 		;
+	return EXIT_FAILURE; //shouldnt end up here
 }
 
+//private funcitons
 /*
  * setupHAL
  *
@@ -49,7 +59,8 @@ void ledInit() {
 	ledAInit.Speed = GPIO_SPEED_FREQ_LOW;
 	ledAInit.Pull = GPIO_NOPULL;
 
-	__HAL_RCC_GPIOA_CLK_ENABLE(); //why?
+	__HAL_RCC_GPIOA_CLK_ENABLE()
+	; //why?
 
 	HAL_GPIO_Init(GPIOA, &ledAInit);
 
